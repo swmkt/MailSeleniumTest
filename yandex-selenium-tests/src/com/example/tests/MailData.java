@@ -3,10 +3,16 @@ package com.example.tests;
 /**
  * Created by yulia on 1/28/15.
  */
-public class MailData {
+public class MailData implements Comparable<MailData> {
     public String date;
     public String text;
     public String content;
+
+    public MailData(String text, String content) {
+        this.date = null;
+        this.text = text;
+        this.content = content;
+    }
 
     @Override
     //generated to see in logs
@@ -31,5 +37,10 @@ public class MailData {
     @Override
     public int hashCode() {
         return text != null ? text.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(MailData other) {
+        return this.text.compareTo(other.text);
     }
 }

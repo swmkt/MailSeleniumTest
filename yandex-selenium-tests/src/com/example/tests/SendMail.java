@@ -4,13 +4,13 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 
-import java.io.Console;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by yulia on 1/25/15.
  */
-public class OpenMail extends TestBase {
+public class SendMail extends TestBase {
     @Test
     public void enterMail() throws Exception {
         loginToMailBox();
@@ -28,10 +28,22 @@ public class OpenMail extends TestBase {
         loginToMailBox();
         List<MailData> oldList = app.getMailPageHelper().getMails();
         //send mail
-        app.getMailPageHelper().sendMail();
+        MailData mailToSend = new MailData("Посланное письмо из sendMail", "1");
+        app.getMailPageHelper().sendMail(mailToSend);
         //save new state
         List<MailData> newList = app.getMailPageHelper().getMails();
         //compare states
-        assertEquals(oldList.size() + 1, newList.size());
+        Collections.sort(oldList);
+        Collections.sort(newList);
+        assertEquals(oldList, newList);
+    }
+
+    @Test
+    public void sendAndDeleteMail() throws Exception {
+        loginToMailBox();
+        MailData mailToDelete = new MailData("Удали это письмо", "Содержание удаленного письма");
+        app.getMailPageHelper().sendMail(mailToDelete);
+        app.getNavigationHelper().openMailOutboxLink();
+        app.getMailPageHelper().deleteMail(mailToDelete);
     }
 }

@@ -12,12 +12,17 @@ public class NavigationHelper extends HelperBase{
 
     public void openMainPage() {
         //open main page
-        driver.get(manager.baseUrlYandexSearch + "/");
+        driver.get(manager.baseUrlYandexSearch);
     }
 
     public void openMailLink() {
-        driver.get(manager.baseUrlRamblerMail + "/");
+        driver.get(manager.baseUrlRamblerMail);
     }
+
+    public void openMailOutboxLink() {
+        driver.get(manager.baseUrlRamblerMail + "/#/folder/SentBox/");
+    }
+
 
     public void clickCheckBoxNotMyPC() {
         click(By.id("b-mail-domik-permament11"));
