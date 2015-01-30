@@ -11,15 +11,15 @@ public class MailLoginHelper extends HelperBase {
     }
 
     public void clickEnterButton() {
-//        driver.findElement(By.linkText("Войти")).click();
-        click(By.cssSelector("input.b-mail-button__button"));
+        driver.findElement(By.name("profile.send")).click();
+
     }
 
     public void typeUserPassword(String userPassword) {
-        type(By.id("b-mail-domik-password11"), userPassword);
+        type(By.id("password"), userPassword);
     }
 
     public void typeUserName(String userName) {
-        type(By.id("b-mail-domik-username11"), userName);
+        type(By.id("login"), userName);
     }
 }

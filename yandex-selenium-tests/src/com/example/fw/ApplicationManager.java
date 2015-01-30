@@ -1,6 +1,5 @@
 package com.example.fw;
 
-import com.example.tests.TestBase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -14,7 +13,9 @@ import static org.junit.Assert.fail;
 public class ApplicationManager {
 
     public WebDriver driver;
-    public String baseUrl;
+    public String baseUrlYandexSearch;
+    public String baseUrlRamblerMail;
+
     private StringBuffer verificationErrors = new StringBuffer();
 
     private NavigationHelper navigationHelper;
@@ -24,7 +25,8 @@ public class ApplicationManager {
 
     public ApplicationManager(){
         driver = new FirefoxDriver();
-        baseUrl = "http://ya.ru";
+        baseUrlYandexSearch = "http://ya.ru";
+        baseUrlRamblerMail = "https://mail.rambler.ru/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     public void stop() {

@@ -50,7 +50,7 @@ public class HelperBase {
     }
 
     protected void click(By by) {
-        driver.findElement(by);
+        driver.findElement(by).click();
     }
 
     protected void type(By by, String text) {

@@ -12,11 +12,11 @@ public class NavigationHelper extends HelperBase{
 
     public void openMainPage() {
         //open main page
-        driver.get(manager.baseUrl + "/");
+        driver.get(manager.baseUrlYandexSearch + "/");
     }
 
     public void openMailLink() {
-        click(By.linkText("Войти в почту"));
+        driver.get(manager.baseUrlRamblerMail + "/");
     }
 
     public void clickCheckBoxNotMyPC() {

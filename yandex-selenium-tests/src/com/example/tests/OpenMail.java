@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 
+import java.io.Console;
 import java.util.List;
 
 /**
@@ -12,31 +13,25 @@ import java.util.List;
 public class OpenMail extends TestBase {
     @Test
     public void enterMail() throws Exception {
-        app.getNavigationHelper().openMainPage();
+        loginToMailBox();
+    }
+
+    private void loginToMailBox() {
         app.getNavigationHelper().openMailLink();
-        app.getMailLoginHelper().typeUserName("julia.a.orlova");
+        app.getMailLoginHelper().typeUserName("testovajapochta1");
         app.getMailLoginHelper().typeUserPassword("asasas");
-        app.getNavigationHelper().clickCheckBoxNotMyPC();
         app.getMailLoginHelper().clickEnterButton();
     }
 
     @Test
     public void sendMail() throws Exception {
-//        app.getNavigationHelper().openMainPage();
-//        app.getNavigationHelper().openMailLink();
-        app.driver.get("https://mail.yandex.ru");
-        app.getMailLoginHelper().typeUserName("julia.a.orlova");
-        app.getMailLoginHelper().typeUserPassword("asasas");
-//        app.getNavigationHelper().clickCheckBoxNotMyPC();
-        app.getMailLoginHelper().clickEnterButton();
-        //save old state
+        loginToMailBox();
         List<MailData> oldList = app.getMailPageHelper().getMails();
         //send mail
         app.getMailPageHelper().sendMail();
         //save new state
         List<MailData> newList = app.getMailPageHelper().getMails();
         //compare states
-        assertEquals(oldList.size(), newList.size());
-
+        assertEquals(oldList.size() + 1, newList.size());
     }
 }
