@@ -4,21 +4,16 @@ package com.example.tests;
  * Created by yulia on 1/28/15.
  */
 public class MailData implements Comparable<MailData> {
-    public String date;
-    public String text;
-    public String content;
-
-    public MailData(String text, String content) {
-        this.date = null;
-        this.text = text;
-        this.content = content;
-    }
+    private String date;
+    private String topic;
+    private String content;
+    private String recipient;
 
     @Override
     //generated to see in logs
     public String toString() {
         return "MailData{" +
-                "text='" + text + '\'' +
+                "topic='" + topic + '\'' +
                 '}';
     }
 //generated to compare objects
@@ -29,18 +24,49 @@ public class MailData implements Comparable<MailData> {
 
         MailData mailData = (MailData) o;
 
-        if (text != null ? !text.equals(mailData.text) : mailData.text != null) return false;
+        if (topic != null ? !topic.equals(mailData.topic) : mailData.topic != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return text != null ? text.hashCode() : 0;
+        return topic != null ? topic.hashCode() : 0;
     }
 
     @Override
     public int compareTo(MailData other) {
-        return this.text.compareTo(other.text);
+        return this.topic.compareTo(other.topic);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public MailData withTopic(String topic) {
+        this.topic = topic;
+        return this;
+    }
+
+    public MailData withContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public MailData withRecipient(String recipient) {
+        this.recipient = recipient;
+        return this;
     }
 }

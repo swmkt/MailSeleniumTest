@@ -10,5 +10,8 @@
     <orderEntry type="library" name="selenium-java-2.44.0" level="project" />
     <orderEntry type="library" name="junit-4.121" level="project" />
     <orderEntry type="library" name="selenium-server-standalone-2.44.0" level="project" />
+    <orderEntry type="library" name="xstream-1.4.7" level="project" />
+    <orderEntry type="library" name="cglib-nodep-2.2" level="project" />
+    <orderEntry type="library" name="antlr-2.7.7" level="project" />
   </component>
 </module>

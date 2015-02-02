@@ -10,21 +10,39 @@ public class NavigationHelper extends HelperBase{
         super(manager);
     }
 
-    public void openMainPage() {
-        //open main page
-        driver.get(manager.baseUrlYandexSearch);
-    }
-
-    public void openMailLink() {
-        driver.get(manager.baseUrlRamblerMail);
+    public void openMailPage() {
+        if(!onMailPage())
+            driver.get(manager.baseUrlRamblerMail);
     }
 
     public void openMailOutboxLink() {
-        driver.get(manager.baseUrlRamblerMail + "/#/folder/SentBox/");
+        if(!onOutboxPage())
+            driver.get(manager.baseUrlRamblerMail + "/#/folder/SentBox/");
+    }
+
+    public void openMailInboxLink() {
+        if(!onInboxPage())
+            driver.get(manager.baseUrlRamblerMail + "/#/folder/Inbox/");
+    }
+
+    private boolean onMailPage()
+    {
+        if(driver.getCurrentUrl().contains(manager.baseUrlRamblerMail) && driver.findElements(By.name("profile.send")).size() > 0)
+            return true;
+        else return false;
+    }
+    private boolean onInboxPage()
+    {
+        if(driver.getCurrentUrl().contains("Inbox"))
+            return true;
+        else return false;
+    }
+    private boolean onOutboxPage()
+    {
+        if(driver.getCurrentUrl().contains("Sent"))
+            return true;
+        else return false;
     }
 
 
-    public void clickCheckBoxNotMyPC() {
-        click(By.id("b-mail-domik-permament11"));
-    }
 }

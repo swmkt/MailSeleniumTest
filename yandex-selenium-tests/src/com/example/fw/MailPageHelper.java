@@ -16,34 +16,35 @@ public class MailPageHelper extends HelperBase {
         super(manager);
     }
 
+    private List<MailData> cachedMails;
     public List<MailData> getMails() {
-        List<MailData> mails = new ArrayList<MailData>();
+        if(cachedMails == null) {
+            rebuildCache();
+        }
+        return cachedMails;
+    }
+
+    private void rebuildCache() {
+        List<MailData> cachedMails = new ArrayList<MailData>();
         List<WebElement> topics = driver.findElements(By.className("listItem"));
         for(WebElement topic : topics)
         {
-            MailData mail = new MailData("","");
-            mail.text = topic.getText();
-            mails.add(mail);
+            MailData mail = new MailData();
+            mail.withTopic(topic.getText());
+            cachedMails.add(mail);
         }
-        return mails;
     }
 
-    public void sendMail(MailData mail) {
+    public MailPageHelper sendMail(MailData mail) {
         clickNewMailButton();
-        chooseMailRecipient();
+        chooseMailRecipient(mail.getRecipient());
         typeMail(mail);
         clickSendMailButton();
+        return this;
     }
 
-    private void chooseMailRecipient() {
-        new Select(driver.findElement(By.cssSelector("select.composeSelectFrom"))).selectByVisibleText("John Smith (testovajapochta1@rambler.ru)");
-        driver.findElement(By.cssSelector("label.uiAutocompletePlaceholder")).click();
-        driver.findElement(By.cssSelector("input.uiAutocompleteTextInput")).click();
-        driver.findElement(By.cssSelector("div.composeNameFrom")).click();
-        driver.findElement(By.cssSelector("label.uiAutocompletePlaceholder")).click();
-        driver.findElement(By.cssSelector("input.uiAutocompleteTextInput")).click();
-        driver.findElement(By.cssSelector("input.uiAutocompleteTextInput")).clear();
-        driver.findElement(By.cssSelector("input.uiAutocompleteTextInput")).sendKeys("testovajapochta1@rambler.ru");
+    private void chooseMailRecipient(String recipient) {
+        driver.findElement(By.cssSelector("input.uiAutocompleteTextInput")).sendKeys(recipient);
     }
 
     private void clickSendMailButton() {
@@ -51,7 +52,7 @@ public class MailPageHelper extends HelperBase {
     }
 
     private void typeMail(MailData mail) {
-        type(By.id("subject"), mail.text);
+        type(By.id("subject"), mail.getTopic());
 //        type(By.cssSelector("div.uiTextarea.composeTextarea"), mail.content);
     }
 
@@ -59,9 +60,20 @@ public class MailPageHelper extends HelperBase {
         click(By.cssSelector("button.uiButton.uiButtonNormal"));
     }
 
-    public void deleteMail(MailData mailToDelete) {
-        click(By.linkText(mailToDelete.text));
+    public MailPageHelper deleteHighlightedMail() {
         click(By.className("iconDelete"));
+        return this;
     }
 
+    public MailPageHelper checkMail(MailData mailToDelete){
+        click(By.linkText(mailToDelete.getTopic()));
+        return this;
+
+    }
+
+    public MailPageHelper checkAllMails() {
+        driver.findElement(By.xpath("(//input[@type='checkbox'])[2]")).click();
+        return this;
+
+    }
 }

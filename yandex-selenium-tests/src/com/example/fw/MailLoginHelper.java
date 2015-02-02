@@ -10,16 +10,18 @@ public class MailLoginHelper extends HelperBase {
         super(manager);
     }
 
-    public void clickEnterButton() {
+    public MailLoginHelper clickEnterButton() {
         driver.findElement(By.name("profile.send")).click();
-
+        return this;
     }
 
-    public void typeUserPassword(String userPassword) {
+    public MailLoginHelper typeUserPassword(String userPassword) {
         type(By.id("password"), userPassword);
+        return this;
     }
 
-    public void typeUserName(String userName) {
+    public MailLoginHelper typeUserName(String userName) {
         type(By.id("login"), userName);
+        return this;
     }
 }

@@ -11,7 +11,7 @@ public class SearchPageHelper extends HelperBase {
     }
     public void createQuery(String string) {
         //create new query
-        type(By.id("text"), string);
+        type(By.id("topic"), string);
     }
 
     public void submitQuery() {
